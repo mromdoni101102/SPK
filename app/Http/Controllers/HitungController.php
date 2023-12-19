@@ -91,6 +91,8 @@ class HitungController extends Controller
             'penilaian' => $penilaians,
             'normalisasi' => $normalizedValues,
             'weightedNormalization' => $weightedNormalization,
+            'Si' => $sum,
+            'Ri' => $max,
             'finalValues' => $finalValues,
             'ranking' => $ranking,
         ]);

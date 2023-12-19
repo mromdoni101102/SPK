@@ -57,7 +57,8 @@
                                     <div class="col-span-2 sm:col-span-1">
                                         <label for="weight"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bobot</label>
-                                        <input onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00" type="number" name="weight" id="weight"
+                                        <input onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00"
+                                            type="number" name="weight" id="weight"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="eg. 20" required="">
                                     </div>
@@ -152,15 +153,17 @@
                                                     data-modal-target="edit-criteria-{{ $c->id }}"
                                                     data-modal-toggle="edit-criteria-{{ $c->id }}"
                                                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
-                                                    <form id="{{ $c->id }}" action="{{ route('criteria.destroy', $c->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
-                                                    </form>
+                                                <form id="{{ $c->id }}"
+                                                    action="{{ route('criteria.destroy', $c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                                                </form>
                                             </div>
                                             <!-- Main modal -->
-                                            <div id="edit-criteria-{{ $c->id }}" tabindex="-1" aria-hidden="true"
+                                            <div id="edit-criteria-{{ $c->id }}" tabindex="-1"
+                                                aria-hidden="true"
                                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                 <div class="relative w-full max-w-md max-h-full p-4">
                                                     <!-- Modal content -->
@@ -191,7 +194,8 @@
                                                             class="p-4 md:p-5" method="POST">
                                                             @method('PUT')
                                                             @csrf
-                                                            <input name="id" type="hidden" value="{{$c->id}}" />
+                                                            <input name="id" type="hidden"
+                                                                value="{{ $c->id }}" />
                                                             <div class="grid grid-cols-2 gap-4 mb-4">
                                                                 <div class="col-span-2">
                                                                     <label for="criteria_code"
@@ -214,8 +218,10 @@
                                                                 <div class="col-span-2 sm:col-span-1">
                                                                     <label for="weight"
                                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bobot</label>
-                                                                    <input type="number" onchange="setTwoNumberDecimal" min="0" step="0.01" value="{{ $c->weight }}"
-                                                                        name="weight" id="weight"
+                                                                    <input type="number" onchange="setTwoNumberDecimal"
+                                                                        min="0" step="0.01"
+                                                                        value="{{ $c->weight }}" name="weight"
+                                                                        id="weight"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                         placeholder="eg. 20" required="">
                                                                 </div>
@@ -224,10 +230,14 @@
                                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                                                     <select id="criteria_type" name="criteria_type"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                        <option selected value="{{ $c->criteria_type }}">
+                                                                        <option hidden disabled value="">
                                                                             Select category</option>
-                                                                        <option value="Benefit">Benefit</option>
-                                                                        <option value="Cost">Cost</option>
+                                                                        <option
+                                                                            @if ($c->criteria_type == 'Benefit') selected @endif
+                                                                            value="Benefit">Benefit</option>
+                                                                        <option
+                                                                            @if ($c->criteria_type == 'Cost') selected @endif
+                                                                            value="Cost">Cost</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -252,6 +262,7 @@
 
     <script>
         myHTMLNumberInput.onchange = setTwoNumberDecimal;
+
         function setTwoNumberDecimal(event) {
             this.value = parseFloat(this.value).toFixed(2);
         }
